@@ -53,3 +53,12 @@ function(nrf_apply_patches)
         math(EXPR PATCHNUM "${PATCHNUM}+1")
     endforeach()
 endfunction()
+
+function(change_arm_gcc_path)
+    cmake_parse_arguments(change_arm_gcc_path "" "SOURCE_PATH" "" ${ARGN})
+    message(STATUS "${change_arm_gcc_path_SOURCE_PATH} Changing arm gcc path to $ENV{GNUARMEMB_TOOLCHAIN_PATH}")
+
+    file(READ ${change_arm_gcc_path_SOURCE_PATH}/components/toolchain/gcc/Makefile.posix FILE_CONTENTS)
+    string(REPLACE "/usr/local/gcc-arm-none-eabi-7-2018-q2-update" "$ENV{GNUARMEMB_TOOLCHAIN_PATH}" FILE_CONTENTS ${FILE_CONTENTS})
+    file(WRITE ${change_arm_gcc_path_SOURCE_PATH}/components/toolchain/gcc/Makefile.posix ${FILE_CONTENTS})
+endfunction()

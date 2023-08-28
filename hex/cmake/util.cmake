@@ -191,7 +191,9 @@ function(nrf_prepare_sdk)
                 SOURCE_PATH "${SDK_DIRECTORY}"
                 PATCHES ${nrf_prepare_sdk_PATCH_FILES}
             )
-
+            change_arm_gcc_path(
+                SOURCE_PATH "${SDK_DIRECTORY}"
+            )
             nrf_configure_sdk_values(
                 "${SDK_VERSION}"
                 "${SDK_DIRECTORY}"
